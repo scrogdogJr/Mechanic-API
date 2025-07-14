@@ -18,11 +18,19 @@ ticket_mechanic = Table(
     Column('mechanic_id', ForeignKey('mechanics.id'))
 )
 
+ticket_part = Table(
+    'ticket_part',
+    Base.metadata,
+    Column('service_ticket_id', ForeignKey('service_tickets.id')),
+    Column('part_id', ForeignKey('inventory.part_id'))
+)
+
 class Customer(Base):
     __tablename__ = 'customers'
     id: Mapped[int] = mapped_column(primary_key=True) # Don't need mapped_column unless you have other conditions
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     email: Mapped[str] = mapped_column(String(360), nullable=False, unique=True)
+    password: Mapped[str] = mapped_column(String(255), nullable=False)
 
     service_tickets: Mapped[List['ServiceTickets']] = db.relationship(back_populates='customer')
 
@@ -36,6 +44,7 @@ class ServiceTickets(Base):
 
     customer: Mapped['Customer'] = db.relationship('Customer', back_populates='service_tickets')
     mechanics: Mapped[List['Mechanic']] = db.relationship(secondary=ticket_mechanic, back_populates='service_tickets')
+    parts: Mapped[List['Inventory']] = db.relationship(secondary=ticket_part, back_populates='service_tickets')
 
 class Mechanic(Base):
     __tablename__ = 'mechanics'
@@ -46,3 +55,12 @@ class Mechanic(Base):
     salary: Mapped[float] = mapped_column(nullable=False)
 
     service_tickets: Mapped[List['ServiceTickets']] = db.relationship(secondary=ticket_mechanic, back_populates='mechanics')
+
+class Inventory(Base):
+    __tablename__ = 'inventory'
+
+    part_id: Mapped[int] = mapped_column(primary_key=True)
+    part_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    price: Mapped[float] = mapped_column(nullable=False)
+
+    service_tickets: Mapped[List['ServiceTickets']] = db.relationship(secondary=ticket_part, back_populates='parts')

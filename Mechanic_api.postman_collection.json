@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"email@email.com\",\r\n    \"name\": \"Test Subject\"\r\n}",
+							"raw": "{\r\n    \"email\": \"email@email.com\",\r\n    \"name\": \"Test Subject\",\r\n    \"password\": \"Secret\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -56,7 +56,7 @@
 							"raw": "{\r\n    \"email\": \"email@email.com\",\r\n    \"name\": \"Test Subject\"\r\n}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/customers",
+							"raw": "http://127.0.0.1:5000/customers?page=1&per_page=2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -67,6 +67,16 @@
 							"port": "5000",
 							"path": [
 								"customers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -137,16 +147,50 @@
 					"name": "Delete Customer",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTI0MDIxNjEsImlhdCI6MTc1MjM5ODU2MSwic3ViIjoiMSJ9.THCggZ1ZBsSyRHYgSS63SFXOOQyWFDkRUOAeqj5ZMTQ",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"newemail@email.com\",\r\n    \"name\": \"Jarrad\"\r\n}"
+							"raw": "{\r\n    \"email\": \"email@email.com\",\r\n    \"password\": \"Secret\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/customers/2",
+							"raw": "http://127.0.0.1:5000/customers/login",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -157,7 +201,40 @@
 							"port": "5000",
 							"path": [
 								"customers",
-								"2"
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tickets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTI0Mjk1MTQsImlhdCI6MTc1MjQyNTkxNCwic3ViIjoiMyJ9.OxuoM8Q77SL25BHibGhDJjYjVqhMGPtzKOU1o1uFJKg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/customers/my-tickets",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customers",
+								"my-tickets"
 							]
 						}
 					},
@@ -178,7 +255,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Bob Schnieder\",\r\n    \"email\": \"bob@gmail.com\",\r\n    \"phone\": \"4803947364\",\r\n    \"salary\": \"48875\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Tim Schnieder\",\r\n    \"email\": \"tim@gmail.com\",\r\n    \"phone\": \"4803947334\",\r\n    \"salary\": \"48875\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -278,6 +355,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Search Mechanic by Name",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -291,7 +376,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"service_date\": \"07/12/2025\",\r\n    \"service_desc\": \"Fixed car\",\r\n    \"VIN\": \"fjw4958wetga9834\",\r\n    \"customer_id\": \"2\"\r\n}",
+							"raw": "{\r\n    \"service_date\": \"2025-07-12\",\r\n    \"service_desc\": \"Fixed car3\",\r\n    \"VIN\": \"fjw4958wetga9834\",\r\n    \"customer_id\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -321,7 +406,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/service-tickets/1/assign-mechanic/2",
+							"raw": "http://127.0.0.1:5000/service-tickets/2/assign-mechanic/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -332,9 +417,9 @@
 							"port": "5000",
 							"path": [
 								"service-tickets",
-								"1",
+								"2",
 								"assign-mechanic",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -382,6 +467,236 @@
 							"port": "5000",
 							"path": [
 								"service-tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Service Ticket",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"add_mechanic_ids\": [2],\r\n    \"remove_mechanic_ids\": [1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/service-tickets/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service-tickets",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Part to Ticket",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/service-tickets/1/add-part/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"service-tickets",
+								"1",
+								"add-part",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventory CRUD",
+			"item": [
+				{
+					"name": "Create Part",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"part_name\": \"serpentine belt\",\r\n    \"price\": \"18.99\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/inventory",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Parts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"part_name\": \"serpentine belt\",\r\n    \"price\": \"18.99\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/inventory?page=1&per_page=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"inventory"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Part by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"part_name\": \"serpentine belt\",\r\n    \"price\": \"18.99\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/inventory/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"inventory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Part",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"part_name\": \"thermostat housing\",\r\n    \"price\": \"40.98\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/inventory/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"inventory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Part",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"part_name\": \"thermostat housing\",\r\n    \"price\": \"40.98\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/inventory/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"inventory",
+								"2"
 							]
 						}
 					},
