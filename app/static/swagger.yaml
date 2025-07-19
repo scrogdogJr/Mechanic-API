@@ -5,9 +5,9 @@ info:
   title: "Mechanic API"
   description: "API to manage a Mechanic Shop"
   version: "1.0.0"
-host: "127.0.0.1:5000"
+host: "mechanic-api-iqe5.onrender.com"
 schemes:
-  - "http"
+  - "https"
 consumes:
   - "application/json"
 produces:
