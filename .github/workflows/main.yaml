@@ -1,4 +1,4 @@
-name: Flask CI
+name: Mechanic CI
 
 on:
   push:
