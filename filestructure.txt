@@ -9,5 +9,6 @@
 │		│				├── routes.py  - Create User Controllers/routes
 │		│				└── userSchemas.py
 │   └── models.py
+|   └── /utils
 ├── app.py
 └── config.py

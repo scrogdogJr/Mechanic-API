@@ -32,7 +32,8 @@ def login():
         return jsonify(response), 200
     
     else:
-        return jsonify({"error": "Invalid email or password"}), 401
+        return jsonify({"Error": "Invalid email or password"}), 401
+    
 
 #CREATE CUSTOMER
 @customers_bp.route('/', methods=['POST'])
@@ -54,6 +55,7 @@ def create_customer():
     db.session.commit()
     return customer_schema.jsonify(new_customer), 201 # The schema is needed to serialize the object into JSON format
 
+
 #GET ALL CUSTOMERS
 @customers_bp.route('/', methods=['GET'])
 # This cache is here because customers will probably be displayed on a page or searched for frequently. But, it is only 60 seconds just in case a newly created customer needs to be accessed quickly.
@@ -74,9 +76,8 @@ def get_customers():
 
 
 #GET CUSTOMER BY ID
-@customers_bp.route('/', methods=['GET'])
+@customers_bp.route('/<int:id>', methods=['GET'])
 @cache.cached(timeout=60)
-@token_required  
 def get_customer(id):
     customer = db.session.get(Customer, id)
     if customer:
@@ -113,7 +114,7 @@ def delete_customer(id):
     if customer:
         db.session.delete(customer)
         db.session.commit()
-        return jsonify({"message": f'Customer {customer.name} deleted successfully!'}), 200
+        return jsonify({"message": f'Customer {customer.name} deleted successfully!'}), 204
     return jsonify({"error": "Customer not found"}), 400
 
 # GET CUSTOMER TICKETS
@@ -127,6 +128,6 @@ def get_customer_tickets(id):
     service_tickets = db.session.execute(query).scalars().all()
 
     if not service_tickets:
-        return jsonify({"message": "You have no service tickets!"})
-    
-    return service_tickets_schema.jsonify(service_tickets)
+        return jsonify({"message": "You have no service tickets!"}), 404
+
+    return service_tickets_schema.jsonify(service_tickets), 200

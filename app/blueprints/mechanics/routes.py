@@ -75,7 +75,7 @@ def delete_mechanic(id):
     
     db.session.delete(mechanic)
     db.session.commit()
-    return jsonify({"message": f"Mechanic {mechanic.name} fired successfully"}), 200
+    return jsonify({"message": f"Mechanic {mechanic.name} fired successfully"}), 204
 
 # SORT MECHANICS BY HOW MANY SERVICE TICKETS THEY HAVE
 @mechanics_bp.route('/experience', methods=['GET'])
